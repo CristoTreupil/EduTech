@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: edutech-app
+  datasource:
+    url: jdbc:postgresql://localhost:5432/edutech
+    username: postgres
+    password: kuro
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update           # Para crear o actualizar tablas automáticamente (puedes cambiar a validate o none en producción)
+    show-sql: true               # Para ver las consultas SQL en consola
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"             # Para habilitar todos los endpoints de actuator
+  endpoint:
+    health:
+      show-details: always       # Mostrar detalles de salud para debugging
