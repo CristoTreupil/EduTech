@@ -2,6 +2,7 @@ package com.EduTechMicroservices.EduTech.controller;
 
 
 import com.EduTechMicroservices.EduTech.model.Pago;
+import com.EduTechMicroservices.EduTech.repository.CursosMasCompradosDto;
 import com.EduTechMicroservices.EduTech.service.PagoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -67,6 +68,11 @@ public class PagoController {
         }catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/cursos-mas-comprados")
+    public List<CursosMasCompradosDto> getCursosMasComprados(){
+        return pagoService.obtenerCursosMasComprados();
     }
 
 }

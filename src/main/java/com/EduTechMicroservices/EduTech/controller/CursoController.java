@@ -39,6 +39,8 @@ public class CursoController {
             curso.setDescripcion(cursoDetalles.getDescripcion());
             curso.setDuracionHoras(cursoDetalles.getDuracionHoras());
             curso.setId(cursoDetalles.getId());
+            curso.setPrecio(cursoDetalles.getPrecio());
+            curso.setDescuento(cursoDetalles.getDescuento());
 
             cursoService.guardarCurso(curso);
 
