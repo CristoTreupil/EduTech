@@ -3,12 +3,11 @@ package com.EduTechMicroservices.EduTech.controller;
 import com.EduTechMicroservices.EduTech.model.Curso;
 import com.EduTechMicroservices.EduTech.service.CursoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/cursos")
@@ -57,5 +56,18 @@ public class CursoController {
         }catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/descuentos")
+    public ResponseEntity<List<CursoConDescuentoDto>> conDescuento() {
+        List<Curso> list = cursoService.obtenerConDescuento();
+        var dto = list.stream().map(c -> new CursoConDescuentoDto(
+                c.getId(),
+                c.getTitulo(),
+                c.getPrecio(),
+                c.getDescuento(),
+                cursoService.calcularPrecioFinal(c)
+        )).collect(Collectors.toList());
+        return ResponseEntity.ok(dto);
     }
 }

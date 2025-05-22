@@ -31,4 +31,12 @@ public class CursoService {
     public void eliminarCurso(Long id){
         cursoRepository.deleteById(id);
     }
+
+    public List<Curso> obtenerConDescuento(){
+        return cursoRepository.findBydescuentoGreaterThan(0);
+    }
+
+    public double calcularPrecioFinal(Curso c){
+        return c.getPrecio() * (1 - c.getDescuento() / 100.0);
+    }
 }
