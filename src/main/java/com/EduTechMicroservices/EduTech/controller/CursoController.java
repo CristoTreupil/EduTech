@@ -22,6 +22,12 @@ public class CursoController {
         return ResponseEntity.ok(cursos);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Curso> obtenerPorId(@PathVariable Long id) {
+        return cursoService.obtenerCursoPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 
     @PostMapping
     public ResponseEntity<Curso> crear(@RequestBody Curso curso) {
@@ -38,14 +44,12 @@ public class CursoController {
             curso.setTitulo(cursoDetalles.getTitulo());
             curso.setDescripcion(cursoDetalles.getDescripcion());
             curso.setDuracionHoras(cursoDetalles.getDuracionHoras());
-            curso.setId(cursoDetalles.getId());
             curso.setPrecio(cursoDetalles.getPrecio());
             curso.setDescuento(cursoDetalles.getDescuento());
 
             cursoService.guardarCurso(curso);
-
             return ResponseEntity.ok(curso);
-        }catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
     }
@@ -55,7 +59,7 @@ public class CursoController {
         try {
             cursoService.eliminarCurso(id);
             return ResponseEntity.noContent().build();
-        }catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
     }
